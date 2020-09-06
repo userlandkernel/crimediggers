@@ -107,4 +107,19 @@ Furthermore it contained the Bitcoin address for the payment: 14ighask(... ommit
 yet to be solved
 
 ### Crypto
-yet to be solved
+
+#### Step one
+Dowloading the provided raw image showed that this image is a raw linux file system dump.
+I first loaded the image into autopsy and analyzed it.  
+Soon I discovered the existence of .ecryptfs in /home which hints that the user has an encrypted container on this system.  
+
+#### Step two
+Janny is a user on the system and in the ecryptfs folder inside janny we could see that a wrapped-passphrase exists.  
+This passphrase together with the password of Janny can be used to recover the private directory that is now encypted.  
+
+##### Step three
+Password recovery seemed like a good option to me as we are able to unshadow /etc/passwd /etc/shadow.  
+John is a utility that can be used to crack weak linux passwords and within minutes it showed that janny used the password "princess".  
+Now as we can not decrypt this image outside a live system and chroot won't have an ecryptfs kernel module loaded the image needed to be converted to a virtual disk for vmware.  
+This can be done through qemu-img convert -O vmdk Janny-PC.raw Janny-PC.vmdk but may take some time.  
+
