@@ -5,6 +5,8 @@ Solving the challenges of the Dutch National Police
 The Dutch National Police is hosting a website with challenges for security and IT professionals.
 I have done my best to solve the challenge and will explain how I managed to solve these challenges.
 
+---
+
 ### OSINT
 The OSINT challenge was to find out the name of the person behind an email address: Z3r0b3t404@gmail.com.  
 
@@ -44,6 +46,8 @@ As a final link to confirm that this person is indeed a match his email appeared
 #### Step 12
 Josh Grootegast is confirmed to be the person in question we were looking for.  
 
+---
+
 ### Reverse engineering
 
 #### Step 1
@@ -58,6 +62,7 @@ The javascript was used at the time given, thus all new Date() objects need to b
 I first tried to convert this date to an js time value in integer, however this did not give me the correct code.
 Next I tried in regular date string format dd-mm-yyyy hh:mm solving the challenge.
 
+---
 
 ### TCP/IP
 
@@ -103,8 +108,50 @@ The python script ransomware.py contained code intended to encrypt files with a 
 
 Furthermore it contained the Bitcoin address for the payment: 14ighask(... ommited to not reveal flag).
 
+---
+
 ### GEO
-yet to be solved
+
+#### Step one
+The challenge provided two gpx files, after searching the web for those it seemed these are common gps file formats.  
+
+The file contained GPS positions with timestamps encoded in XML format.  
+
+#### Step two
+In search for a tool to load these GPS files I tried to find a website that could but without any result.  
+
+Websites did not allow the loading of two files and if they did they gave the waypoints the same colour.  
+
+I have some friends who do geocaching and asked them for help, they hinted me that Google earth might be an option.  
+
+I tried google earth but did not manage to load the GPX files.  
+
+#### Step four
+I decided to write a python file to find the most probable position: However this took too much effort and I kept failing to optimize and correct my algorithm in the little time I had.  
+
+I did manage to extract the coordinates with python and place them in float lists but the algebra required to do the math was just too much to do aside my homework.  
+
+I figured there must be a different approach.
+
+#### Step five
+I researched the Google Earth documentation and learned how to import waypoints, great this worked.  
+
+Soon I managed to colorize both the pathways and I could start working, however this was still too much of a mess to figure out.  
+
+I started trying out some buttons and saw a bar in the top of Google earth.  
+
+Apparently this is a time bar that you can move accross the time window the waypoints were created (GPS time from the file).   
+
+#### Step six
+By playing with the time window and spending another thirty minutes I figured out a point at a riverside which was the most probable.  
+
+I entered the coordinates on the website but they did not work.  
+
+I soon asumed that the notation of my coordinates was incorrect and I started looking how to change the format.  
+
+In the preferences I discovered that there is a pure decimal notation which is likely the format I needed, this being the case I entered the new coordinates and solved the challenge.
+
+---
 
 ### Crypto
 
