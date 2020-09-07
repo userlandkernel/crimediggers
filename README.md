@@ -123,3 +123,30 @@ John is a utility that can be used to crack weak linux passwords and within minu
 Now as we can not decrypt this image outside a live system and chroot won't have an ecryptfs kernel module loaded the image needed to be converted to a virtual disk for vmware.  
 This can be done through qemu-img convert -O vmdk Janny-PC.raw Janny-PC.vmdk but may take some time.  
 
+#### Step four
+As the virtual machine booted up and I entered janny's password I got access to the encrypted container automatically.  
+Now it became clear this user had a KeePass password database in Pictures and some images.  
+The images were pretty big in size which may indicate there is steganography going on, but they seemed pretty wide and high as well.  
+I decided to do forensic analysis first.  
+
+#### Step five
+I analyzed the cache of firefox and found the user reached various banks.  
+By launching firefox I found out that the user also viewed a local file: An emergency sheet of keepass.  
+
+#### Step six
+I tried data recovery on the harddisk with foremost and sifted through the html files with strings but was unable to recover the emergency sheet file, it was truly deleted from the filesystem.  
+
+#### Step seven
+I investigated the images by running binwalk, a forensic analysis tool for files, to check wether a multiple of filetypes were taped together in the images. 
+Binwalk did not show any positives.  
+
+#### Step eight
+I tried a multiple of steganography tools and looked at the image very well, but was unable to find any visual signs of steganography nor did the tool.  
+
+#### Step nine
+I was destined to not give up hope and decided to attempt to brute-force the keepass database by exporting its hash to john and bruteforcing it with rockyou.txt.  
+When this did not give any result I knew I was missing something, brute-force was not the solution this time.  
+
+#### Step ten 
+Eventually I used strings on the images and found the password for keepass at the end of the third image.  
+I logged in to keepass and found the entry with the internet banking password solving the challenge.  
